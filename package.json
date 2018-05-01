@@ -1,0 +1,19 @@
+{
+  "name": "cme",
+  "version": "1.0.0",
+  "description": "CME Beta",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Varun",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.2",
+    "express": "4.16.3",
+    "jsonwebtoken": "^8.2.1",
+    "mongoose": "5.0.12",
+    "nodemon": "1.17.3"
+  }
+}

@@ -25,12 +25,14 @@ module.exports = {
       });
       event.save()
         .then(event => {
+          console.log('Event Saved');
           return addEventToDepartment(event);
         })
         .then(data => {
           resolve(event);
         })
         .catch(error => {
+          console.log(error);
           reject(error);
         })
     })
@@ -71,5 +73,9 @@ module.exports = {
 
   getCountryEvents: country => {
     return Event.find({'address.country': country})
+  },
+
+  getEvent: id => {
+    return Event.findById(id)
   }
 }

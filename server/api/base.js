@@ -1,9 +1,9 @@
 const responseObj = require('./../config/response');
 const { loginUser, signUpUser } = require('./../controller/userCtrl');
 const { allCities, allStates, allCountries } = require('./../controller/demoCtrl');
-const { getOrg, getAllOrgs } = require('./../controller/orgCtrl');
-const { getDep } = require('./../controller/depCtrl');
-const { getEventsOfOrg, getAllEvents, getCityEvents, getStateEvents, getCountryEvents } = require('./../controller/eventCtrl');
+const { getOrg, getAllOrgs, getOrgName } = require('./../controller/orgCtrl');
+const { getDep, getDepName } = require('./../controller/depCtrl');
+const { getEventsOfOrg, getAllEvents, getCityEvents, getStateEvents, getCountryEvents, getEvent } = require('./../controller/eventCtrl');
 
 module.exports = app => {
   
@@ -83,6 +83,8 @@ module.exports = app => {
 // get one department specific details -> events already populated
 // get all events
 // get events based on city, state and country
+// get details of one event
+// get name of org and dep using their _id
 
 app.get('/cme/allOrgs', (req, res) => {
 
@@ -181,6 +183,39 @@ app.get('/cme/countryEvents/:cntry', (req, res) => {
     .catch(error => {
       res.status(500).json(responseObj(true, 'Events get error', error));
     })   
+})
+
+app.get('/cme/event/:eventId', (req, res) => {
+  let eventId = req.params.eventId;
+  getEvent(eventId)
+    .then(data => {
+      res.json(responseObj(false, 'Event Fetched', data))
+    })
+    .catch(error => {
+      res.status(500).json(responseObj(true, 'Error in getting event', error));
+    }) 
+})
+
+app.get('/cme/nameDep/:id', (req, res) => {
+  let depId = req.params.id;
+  getDepName(depId)
+    .then(data => {
+      res.json(responseObj(false, 'Name fetched', data.name))
+    })
+    .catch(error => {
+      res.status(500).json(responseObj(true, 'Error in getting event', error));
+    }) 
+})
+
+app.get('/cme/nameOrg/:id', (req, res) => {
+  let orgId = req.params.id;
+  getOrgName(orgId)
+    .then(data => {
+      res.json(responseObj(false, 'Name fetched', data.name))
+    })
+    .catch(error => {
+      res.status(500).json(responseObj(true, 'Error in getting event', error));
+    }) 
 })
 
 }

@@ -44,12 +44,15 @@ router.post('/newEvent', isLoggedIn, isDAorOAorSA, ifSAorOAandEVENT, (req, res) 
   const seatCount = Event.seatCount;
   const timeTable = Event.timeTable;
 
+  console.log('HERE WE ARE');
+
   let E;
 
   saveEvent(orgId, depId, organisationName, address, departmentName, title, fromDate, toDate, poc, credits, fees,
             limitedSeats, seatCount, timeTable)
       .then(event => {
         E = event;
+        console.log('Event made it, going for cities');
         return Promise.all([addCityIfNeeded(city), addStateIfNeeded(state), addCountryIfNeeded(country)]);
       })
       .then(data => {

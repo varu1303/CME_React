@@ -37,7 +37,6 @@ class SApage extends React.Component {
               <p>Number of Departments: {org.departments.length}</p>
               <button onClick={() => { this.goToOrg(org._id) } }>See Details</button>
               <br />
-              <button>Delete Organisation</button>
               <hr />
             </div>
           )

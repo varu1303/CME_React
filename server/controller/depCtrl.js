@@ -29,9 +29,12 @@ module.exports = {
     return Department.findById(id).populate('events');
   },
 
+  getDepName: id => {
+    return Department.findById(id)
+  },
+
   addEventToDepartment: event => {
     return new Promise((resolve, reject) => {
-      console.log(event);
       Department.findById(event.depId)
         .then(dep => {
           if (dep) {
@@ -42,10 +45,10 @@ module.exports = {
           }
         })
         .then(updatedDep => {
+          console.log('department updated');
           resolve(event);
           updatedDep.subscribed.forEach(emailId => {
             // console.log('Notify emailId ' + emailId + ' about ', event);
-
           })
         })
         .catch(error => {

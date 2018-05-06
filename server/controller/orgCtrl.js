@@ -13,8 +13,11 @@ module.exports = {
   },
 
   getOrg: id => {
-    console.log(id);
     return Organisation.findById(id).populate('departments');
+  },
+
+  getOrgName: id => {
+    return Organisation.findById(id)
   },
 
   removeOrg: orgId => {

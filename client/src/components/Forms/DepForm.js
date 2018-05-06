@@ -7,7 +7,23 @@ class DepForm extends React.Component {
   state = {
     name: '',
     emailId: '',
-    orgId: this.props.match.params.orgId
+    orgId: this.props.match.params.orgId,
+    organisationName: ''
+  }
+
+  componentDidMount() {
+    console.log(this.props.match.params.orgId);
+    axios.get('/cme/nameOrg/' + this.props.match.params.orgId)
+      .then(data => {
+        this.setState(() => {
+          return {
+            organisationName: data.data.data
+          }
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      })
   }
 
   updateState = (event) => {
@@ -49,6 +65,7 @@ class DepForm extends React.Component {
             value={this.state.name}
             onChange={this.updateState}
           />
+          <br />
           <input 
             type="email"
             name="emailId"
@@ -56,6 +73,13 @@ class DepForm extends React.Component {
             value={this.state.emailId}
             onChange={this.updateState}
           />
+          <br />
+          <input 
+            type="text"
+            name="organisationName"
+            placeholder="Organisations name"
+            value={this.state.organisationName}
+          />        
           <button type="submit">SUBMIT</button>
         </form>
       </div>
